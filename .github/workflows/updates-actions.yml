@@ -14,12 +14,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Use Node.js and install dependencies
       uses: actions/setup-node@v1
-        with:
-          node-version: 14
+      with:
+        node-version: 14
       run: |
         npm install -g pnpm ts-node typescript
         pnpm install
     - name: Run listing.ts and index.js
-    run: |
-      ts-node src/listing.ts
-      node index.js
+      run: |
+        ts-node src/listing.ts
+        node index.js
