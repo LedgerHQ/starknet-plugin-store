@@ -12,14 +12,19 @@ jobs:
       API_SECRET: ${{ secrets.API_SECRET }} #Pinata Secret API Key
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js and install dependencies
+    - name: Use Node.js
       uses: actions/setup-node@v1
       with:
         node-version: 14
-      run: |
-        npm install -g pnpm ts-node typescript
-        pnpm install
-    - name: Run listing.ts and index.js
-      run: |
-        ts-node src/listing.ts
-        node index.js
+    - name: Install pnpm
+      run: npm install -g pnpm
+    - name: Install ts-node
+      run: npm install -g ts-node
+    - name: Install typescript
+      run: npm install -g typescript
+    - name: Install dependencies
+      run: pnpm install
+    - name: Run listing.ts
+      run: ts-node src/listing.ts
+    - name: Run index.js
+      run: node index.js
