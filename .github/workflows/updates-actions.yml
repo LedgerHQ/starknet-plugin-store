@@ -1,0 +1,24 @@
+name: GitHub Actions Update List
+run-name: ${{ github.actor }} has updated the plugin list. 📝
+on: 
+  push:
+    branches:
+      - prod
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    env: 
+      API_KEY: ${{ secrets.API_KEY }} #Pinata API Key
+      API_SECRET: ${{ secrets.API_SECRET }} #Pinata Secret API Key
+    - uses: actions/checkout@v2
+    - name: Use Node.js and install dependencies
+      uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      run: |
+        npm install -g pnpm ts-node typescript
+        pnpm install
+    - name: Run listing.ts and index.js
+    run: |
+      ts-node src/listing.ts
+      node index.js
