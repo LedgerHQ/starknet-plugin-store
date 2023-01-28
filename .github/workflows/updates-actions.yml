@@ -22,9 +22,9 @@ jobs:
       run: pnpm install
     - name: Check if update is necessary
       run: |
-        npx ts-node listChecker.ts
+        npx ts-node scripts/listChecker.ts
         if [ $? -eq 0 ]; then
-          node updateIPFS.js
+          node scripts/updateIPFS.js
         else
           echo "Update impossible. src/listing.json is corrupt, push will be prevented."
           exit 1

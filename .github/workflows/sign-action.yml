@@ -1,24 +1,36 @@
 name: Sign class hash 🖋️
 
 on:
-  repository_dispatch:
-    types: [run-script]
+  workflow_dispatch:
+    
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env: 
-      API_KEY: ${{ secrets.STARKNET_PRIVATE_KEY }} #Starknet private key
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      STARKNET_PRIVATE_KEY: ${{ secrets.STARKNET_PRIVATE_KEY }} #Starknet private key
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14
+    - name: Install pnpm
+      run: npm install -g pnpm
+    - name: Install dependencies
+      run: pnpm install
     - name: Check if update signs is necessary
       run: |
-        npx ts-node listChecker.ts
+        npx ts-node scripts/listChecker.ts
         if [ $? -eq 0 ]; then
-          node sign.js
+          node scripts/sign.js
         else
           echo "Update impossible. src/listing.json is corrupt, push will be prevented."
           exit 1
         fi
+    - run: git config --global user.email "HxSimo@proton.me"
+    - run: git config --global user.name "HxSimo"
+    - run: git add src/listing.json
+    - run: git commit -m "Update listing.json"
+    - run: git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/HxSimo/starknet-plugin-store.git ${{ github.ref }}
