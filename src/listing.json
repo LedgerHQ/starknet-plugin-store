@@ -1,0 +1,8 @@
+[
+  {
+    "id": "0x2a5de1b145e18dfeb31c7cd7ff403714ededf5f3fdf75f8b0ac96f2017541bc",
+    "signature": [],
+    "name": "StarkSQL",
+    "description": "StarkSQL plugin, transform your wallet in DB"
+  }
+]

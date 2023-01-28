@@ -18,13 +18,14 @@ jobs:
         node-version: 14
     - name: Install pnpm
       run: npm install -g pnpm
-    - name: Install ts-node
-      run: npm install -g ts-node
-    - name: Install typescript
-      run: npm install -g typescript
     - name: Install dependencies
       run: pnpm install
-    - name: Run listing.ts
-      run: ts-node src/listing.ts
-    - name: Run index.js
-      run: node index.js
+    - name: Check if update is necessary
+      run: |
+        npx ts-node listChecker.ts
+        if [ $? -eq 0 ]; then
+          node updateIPFS.js
+        else
+          echo "Update impossible. src/listing.json is corrupt, push will be prevented."
+          exit 1
+        fi

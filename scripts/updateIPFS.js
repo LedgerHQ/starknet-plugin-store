@@ -33,7 +33,7 @@ async function main() {
             console.log(err);
         });
     //retrieve the JSON of the plugins list
-    const data = fs.readFileSync('out/listing.json', 'utf8');
+    const data = fs.readFileSync('src/listing.json', 'utf8');
     const jsonData = JSON.parse(data);
 
     //setup pinata options
