@@ -1,0 +1,24 @@
+name: Sign class hash 🖋️
+
+on:
+  repository_dispatch:
+    types: [run-script]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+      API_KEY: ${{ secrets.STARKNET_PRIVATE_KEY }} #Starknet private key
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Check if update signs is necessary
+      run: |
+        npx ts-node listChecker.ts
+        if [ $? -eq 0 ]; then
+          node sign.js
+        else
+          echo "Update impossible. src/listing.json is corrupt, push will be prevented."
+          exit 1
+        fi
