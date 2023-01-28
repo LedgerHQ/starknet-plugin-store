@@ -9,7 +9,7 @@ const {
 const fs = require('fs');
 
 const privateKey = process.env.STARKNET_PRIVATE_KEY ?? "";
-console.log(STARKNET_PRIVATE_KEY);
+
 const starkKeyPair = ec.getKeyPair(privateKey);
 
 const provider = new Provider({
