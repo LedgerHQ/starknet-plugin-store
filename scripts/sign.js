@@ -9,6 +9,7 @@ const {
 const fs = require('fs');
 
 const privateKey = process.env.STARKNET_PRIVATE_KEY ?? "";
+console.log(STARKNET_PRIVATE_KEY);
 const starkKeyPair = ec.getKeyPair(privateKey);
 
 const provider = new Provider({
@@ -16,7 +17,6 @@ const provider = new Provider({
         baseUrl: "https://alpha-mainnet.starknet.io",
     }
 });
-console.log(provider.chainId)
 const pubKey = ec.getStarkKey(starkKeyPair);
 console.log(`Public Key: ${pubKey}`);
 const bnPubKey = ec.ec.curve.pointFromX(number.toBN(pubKey)).encode(true, "hex");
