@@ -20,17 +20,17 @@ jobs:
       run: npm install -g pnpm
     - name: Install dependencies
       run: pnpm install
+    - name: Config Github and pull
+      run: |
+          git config --global user.email "github@actions.com"
+          git config --global user.name "Github Actions"
+          git pull
     - name: Check if update signs is necessary
       run: |
         npx ts-node scripts/listChecker.ts
-        if [ $? -eq 0 ]; then
-          node scripts/sign.js
-        else
-          echo "Update impossible. src/listing.json is corrupt, push will be prevented."
-          exit 1
-        fi
-    - run: git config --global user.email "HxSimo@proton.me"
-    - run: git config --global user.name "HxSimo"
-    - run: git add src/listing.json
-    - run: git commit -m "Update listing.json"
-    - run: git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/HxSimo/starknet-plugin-store.git ${{ github.ref }}
+        node scripts/sign.js
+    - name: Check if listing.json was updated
+      run: |
+          git add src/listing.json
+          (git commit -m "Update listing.json" && git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} ${{ github.ref }}) || true
+          
