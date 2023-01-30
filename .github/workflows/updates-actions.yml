@@ -23,9 +23,4 @@ jobs:
     - name: Check if update is necessary
       run: |
         npx ts-node scripts/listChecker.ts
-        if [ $? -eq 0 ]; then
-          node scripts/updateIPFS.js
-        else
-          echo "Update impossible. src/listing.json is corrupt, push will be prevented."
-          exit 1
-        fi
+        node scripts/updateIPFS.js
