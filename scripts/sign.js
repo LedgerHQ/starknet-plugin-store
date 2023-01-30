@@ -23,9 +23,8 @@ const bnPubKey = ec.ec.curve.pointFromX(number.toBN(pubKey)).encode(true, "hex")
 const inferredKeyPair = ec.getKeyPairFromPublicKey(bnPubKey);
 const data = fs.readFileSync('src/listing.json', 'utf8');
 const jsonData = JSON.parse(data);
-let i = 0;
 for (const plugin of jsonData) {
-    console.log(plugin.name);
+    console.log(`Plugin name: ${plugin.name}`);
     const classHash = plugin.id;
     const msgHash = hash.calculateDeclareTransactionHash(
         classHash,
@@ -44,7 +43,6 @@ for (const plugin of jsonData) {
     } else {
         console.log(`Classhash: ${classHash}\nAlready registered by Ledger`);
     }
-    i++;
 }
 
 const jsonString = JSON.stringify(jsonData, null, 2);
@@ -59,6 +57,7 @@ try {
     console.log(`File listing.json has been updated`);
 } catch (err) {
     console.error(err);
+    process.exit(1);
 }
 
 function isPluginSigned(inferredKeyPair, msgHash,signature) {
