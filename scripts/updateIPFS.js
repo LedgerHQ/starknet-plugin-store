@@ -24,14 +24,10 @@ pinata.testAuthentication().then((result) => {
 async function main() {
 
     const pin = await pinata.pinList(filters);
-    for (let i = 0; i < pin.rows.length; i++)
-        await pinata.unpin(pin.rows[i].ipfs_pin_hash).then((result) => {
-            //handle results here
-            console.log("Unpin done");
-        }).catch((err) => {
-            //handle error here
-            console.log(err);
-        });
+    for (let i = 0; i < pin.rows.length; i++) {
+        await pinata.unpin(pin.rows[i].ipfs_pin_hash)
+        console.log("Unpin done")
+    }
     //retrieve the JSON of the plugins list
     const data = fs.readFileSync('src/listing.json', 'utf8');
     const jsonData = JSON.parse(data);
@@ -46,14 +42,9 @@ async function main() {
         }
     }
     //add pin new json on pinata
-    await pinata.pinJSONToIPFS(jsonData, options).then((result) => {
-        //handle results here
-        //show the address of the JSON file on IPFS by using Pinata
-        console.log(`Link IPFS: https://gateway.pinata.cloud/ipfs/${result.IpfsHash}`);
-    }).catch((err) => {
-        //handle error here
-        console.log(err);
-    });
+    const pinResult = await pinata.pinJSONToIPFS(jsonData, options)
+    //show the address of the JSON file on IPFS by using Pinata
+    console.log(`Link IPFS: https://gateway.pinata.cloud/ipfs/${pinResult.IpfsHash}`);
 }
 
 main()
