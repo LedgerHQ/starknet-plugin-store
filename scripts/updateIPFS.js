@@ -12,17 +12,10 @@ const filters = {
 
 const pinata = new pinataSDK(API_KEY, API_SECRET);
 
-pinata.testAuthentication().then((result) => {
-    //handle successful authentication here
-    console.log(result);
-}).catch((err) => {
-    //handle error here
-    console.log(err);
-    process.exit(1);
-});
 
 async function main() {
 
+    await pinata.testAuthentication()
     const pin = await pinata.pinList(filters);
     for (let i = 0; i < pin.rows.length; i++) {
         await pinata.unpin(pin.rows[i].ipfs_pin_hash)
