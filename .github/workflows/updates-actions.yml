@@ -10,6 +10,7 @@ jobs:
     env: 
       API_KEY: ${{ secrets.API_KEY }} #Pinata API Key
       API_SECRET: ${{ secrets.API_SECRET }} #Pinata Secret API Key
+      PINATA_GATEWAY: ${{ vars.PINATA_GATEWAY }} #Gateway for Pinata link
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js

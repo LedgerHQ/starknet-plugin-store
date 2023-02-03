@@ -37,7 +37,7 @@ async function main() {
     //add pin new json on pinata
     const pinResult = await pinata.pinJSONToIPFS(jsonData, options)
     //show the address of the JSON file on IPFS by using Pinata
-    console.log(`Link IPFS: https://gateway.pinata.cloud/ipfs/${pinResult.IpfsHash}`);
+    console.log(`Link IPFS: ${process.env.PINATA_GATEWAY}/ipfs/${pinResult.IpfsHash}`);
 }
 
 main()

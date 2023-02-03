@@ -12,9 +12,9 @@ async function getLink(pinata) {
     const pin = await pinata.pinList(filters);
     //extracting IPFS Hash
     const ipfsHash = pin.rows[0].ipfs_pin_hash; 
-    console.log(`Link IPFS: https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
+    console.log(`Link IPFS: ${process.env.PINATA_GATEWAY}/ipfs/${ipfsHash}`);
 
-    return `https://gateway.pinata.cloud/ipfs/${ipfsHash}`;
+    return `${process.env.PINATA_GATEWAY}/ipfs/${ipfsHash}`;
 }
 
 module.exports = { getLink }
