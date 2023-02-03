@@ -1,0 +1,27 @@
+name: GitHub Actions Update List
+run-name: ${{ github.actor }} has updated the plugin list. 📝
+on: 
+  push:
+    branches:
+      - prod
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    env: 
+      API_KEY: ${{ secrets.API_KEY }} #Pinata API Key
+      API_SECRET: ${{ secrets.API_SECRET }} #Pinata Secret API Key
+      PINATA_GATEWAY: ${{ vars.PINATA_GATEWAY }} #Gateway for Pinata link
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14
+    - name: Install pnpm
+      run: npm install -g pnpm
+    - name: Install dependencies
+      run: pnpm install
+    - name: Check if update is necessary
+      run: |
+        npx ts-node scripts/listChecker.ts
+        node scripts/updateIPFS.js

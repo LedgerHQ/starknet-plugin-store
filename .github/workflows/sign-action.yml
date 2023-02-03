@@ -1,0 +1,37 @@
+name: Sign class hash 🖋️
+
+on:
+  workflow_dispatch:
+    
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: 
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      STARKNET_PRIVATE_KEY: ${{ secrets.STARKNET_PRIVATE_KEY }} #Starknet private key
+      BASE_URL: ${{ vars.BASE_URL }} #Starknet RPC url
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14
+    - name: Install pnpm
+      run: npm install -g pnpm
+    - name: Install dependencies
+      run: pnpm install
+    - name: Config Github and pull
+      run: |
+          git config --global user.email "github@actions.com"
+          git config --global user.name "Github Actions"
+          git pull
+    - name: Check if update signs is necessary
+      run: |
+        npx ts-node scripts/listChecker.ts
+        node scripts/sign.js
+    - name: Check if listing.json was updated
+      run: |
+          git add src/listing.json
+          (git commit -m "Update listing.json" && git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} ${{ github.ref }}) || true
+          
