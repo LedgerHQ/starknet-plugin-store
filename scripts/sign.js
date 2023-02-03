@@ -14,7 +14,7 @@ const starkKeyPair = ec.getKeyPair(privateKey);
 
 const provider = new Provider({
     sequencer: {
-        baseUrl: "https://alpha-mainnet.starknet.io",
+        baseUrl: process.env.BASE_URL,
     }
 });
 const pubKey = ec.getStarkKey(starkKeyPair);
