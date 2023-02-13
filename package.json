@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier --check .",
-    "prettier:write": "prettier --write ."
+    "prettier:write": "prettier --write .",
+    "lefthook": "lefthook run pre-push"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +25,7 @@
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
     "eslint": "^8.34.0",
+    "lefthook": "^1.2.9",
     "prettier": "^2.8.4"
   }
 }
