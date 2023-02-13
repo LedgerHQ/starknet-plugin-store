@@ -1,9 +1,5 @@
 # dependencies
 node_modules
 
-# env files
-*.env
-!.env.example
-
 # build output
 dist

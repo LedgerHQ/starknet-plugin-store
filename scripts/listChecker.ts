@@ -1,22 +1,23 @@
-import {Listing} from '../src/types';
 import * as fs from 'fs';
-import {TsjsonParser, createSchema as S } from 'ts-json-validator'
+import { TsjsonParser, createSchema as S } from 'ts-json-validator'
 
-export function checkListingJSON(): Boolean {
+export function checkListingJSON(): boolean {
     const schemaPlugin = new TsjsonParser(
-        S({ type: "array", items:
-            S({
-              type: "object",
-              properties: {
-                id: S({ type: "string"}),
-                signature: S({ type: "array", 
-                    items: S({type: "string"}),
-                }),
-                name: S({ type: "string" }),
-                description: S({ type: "string" }),
-              },
-              required: ["id", "signature", "name"] // possible fields autocomplete here
-            })
+        S({
+            type: "array", items:
+                S({
+                    type: "object",
+                    properties: {
+                        id: S({ type: "string" }),
+                        signature: S({
+                            type: "array",
+                            items: S({ type: "string" }),
+                        }),
+                        name: S({ type: "string" }),
+                        description: S({ type: "string" }),
+                    },
+                    required: ["id", "signature", "name"] // possible fields autocomplete here
+                })
         })
     );
     try {
@@ -24,8 +25,9 @@ export function checkListingJSON(): Boolean {
         const jsonData = JSON.parse(data);
         const stringToParse = JSON.stringify(jsonData);
         const parsed = schemaPlugin.parse(stringToParse);
+        console.info(parsed);
         return true;
-    } catch(e) {
+    } catch (e) {
         console.error(e);
         return false;
     }
