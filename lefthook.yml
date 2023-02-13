@@ -7,6 +7,5 @@ pre-push:
       run: pnpm prettier
     build:
       run: pnpm build
-    # TODO: setup unit tests
-    #test:
-    #  run: pnpm jest
+    test:
+      run: pnpm test:ci
