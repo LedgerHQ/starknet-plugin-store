@@ -1,11 +1,11 @@
-const fs = require("fs");
-const process = require("process");
-const pinataSDK = require("@pinata/sdk");
+const fs = require('fs');
+const process = require('process');
+const pinataSDK = require('@pinata/sdk');
 
 const API_KEY = process.env.API_KEY;
 const API_SECRET = process.env.API_SECRET;
 
-const filters = { status: "pinned" };
+const filters = { status: 'pinned' };
 
 const pinata = new pinataSDK(API_KEY, API_SECRET);
 
@@ -15,17 +15,17 @@ async function main() {
 
   for (let i = 0; i < pin.rows.length; i++) {
     await pinata.unpin(pin.rows[i].ipfs_pin_hash);
-    console.log("Unpin done");
+    console.log('Unpin done');
   }
 
   //retrieve the JSON of the plugins list
-  const data = fs.readFileSync("src/listing.json", "utf8");
+  const data = fs.readFileSync('src/listing.json', 'utf8');
   const jsonData = JSON.parse(data);
 
   //setup pinata options
   const options = {
     pinataMetadata: {
-      name: "Plugins List",
+      name: 'Plugins List',
     },
     pinataOptions: {
       cidVersion: 1,

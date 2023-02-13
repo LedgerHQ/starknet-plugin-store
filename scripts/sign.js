@@ -1,8 +1,8 @@
-const { defaultProvider, ec, number, Provider, hash } = require("starknet");
+const { defaultProvider, ec, number, Provider, hash } = require('starknet');
 
-const fs = require("fs");
+const fs = require('fs');
 
-const privateKey = process.env.STARKNET_PRIVATE_KEY ?? "";
+const privateKey = process.env.STARKNET_PRIVATE_KEY ?? '';
 
 const starkKeyPair = ec.getKeyPair(privateKey);
 
@@ -15,9 +15,9 @@ const pubKey = ec.getStarkKey(starkKeyPair);
 console.log(`Public Key: ${pubKey}`);
 const bnPubKey = ec.ec.curve
   .pointFromX(number.toBN(pubKey))
-  .encode(true, "hex");
+  .encode(true, 'hex');
 const inferredKeyPair = ec.getKeyPairFromPublicKey(bnPubKey);
-const data = fs.readFileSync("src/listing.json", "utf8");
+const data = fs.readFileSync('src/listing.json', 'utf8');
 const jsonData = JSON.parse(data);
 for (const plugin of jsonData) {
   console.log(`Plugin name: ${plugin.name}`);
@@ -37,21 +37,21 @@ for (const plugin of jsonData) {
       `New sign of Ledger for Classhash: ${classHash}\nSignature: ${signature}`
     );
     if (ec.verify(inferredKeyPair, msgHash, signature) == false)
-      throw new Error("ERROR: Something went wrong with the sign");
+      throw new Error('ERROR: Something went wrong with the sign');
   } else {
     console.log(`Classhash: ${classHash}\nAlready registered by Ledger`);
   }
 }
 
 const jsonString = JSON.stringify(jsonData, null, 2);
-const filePath = "src/";
+const filePath = 'src/';
 
 if (!fs.existsSync(filePath)) {
   fs.mkdirSync(filePath);
 }
 
 try {
-  fs.writeFileSync(filePath + "listing.json", jsonString);
+  fs.writeFileSync(filePath + 'listing.json', jsonString);
   console.log(`File listing.json has been updated`);
 } catch (err) {
   console.error(err);

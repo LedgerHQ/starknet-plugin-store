@@ -1,6 +1,6 @@
 //an example of how to retrieve the link of the last push.
 const filters = {
-  status: "pinned",
+  status: 'pinned',
 };
 
 async function getLink(pinata) {
@@ -18,4 +18,4 @@ async function getLink(pinata) {
 }
 
 module.exports = { getLink };
-p
+p;
