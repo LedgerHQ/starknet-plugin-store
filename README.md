@@ -6,7 +6,7 @@ Opinionated list of open source Starknet plugins, validated by the Ledger team. 
 
 This list is not exhaustive, and we encourage you to contribute to it. Feel free to suggest your own plugins.
 
-Wanna chat with us? Join our [Discord channel](https://discord.com/channels/885256081289379850/1053266126953529374)
+Wanna chat with us? Join our [Telegram group](https://t.me/+_cZcU5wZvyhmM2U0)
 
 ## Setup
 
